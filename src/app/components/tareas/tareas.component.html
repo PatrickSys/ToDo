@@ -1,0 +1,90 @@
+<section class="container mt-5" (window:beforeunload)="guardarTareas()" >
+
+    <!--Añade una tarea y resetea el formulario-->
+    <div class="col-lg-8 offset-lg-2">
+        <input type="text" [(ngModel)]="nombreTarea" *ngIf="!visible"
+         (keydown.enter)="agregarTarea()" 
+            class="form-control form-control-lg" required placeholder="Añade una tarea..." >
+    </div>
+
+    <!--Input que aparecerá al hacer click en editar, recibe el index del componente de Tarea como parámetro -->
+    <div class="col-lg-8 offset-lg-2" *ngIf="visible">
+        <input type="text" [(ngModel)]="nombreTarea" 
+        (keydown.enter)="editarTarea(); visible = !visible "
+           class="form-control form-control-lg" required [(ngModel)]="tareas[index].nombre" >
+        </div>
+        
+
+    <div class="col-lg-6 offset-lg-3 mt-3">
+        <div *ngIf="tareas.length === 0 && tareasCompletadas.length === 0" class="card p-1">
+            <h6 class="mx-auto">No hay tareas para mostrar. </h6>
+        </div>
+
+    </div>
+
+<!--Tareas sin completar-->        
+<div cdkDropList class="col-lg-6 mt-3 left" (cdkDropListDropped)="drop($event)" >
+
+
+    <div class= "col-md card" *ngIf="tareas.length > 0 || tareasCompletadas.length > 0">
+        <h6 class="mx-auto">Tareas por hacer:</h6>
+    </div>
+
+    <ul class="list-group mt-3">    
+
+            <!--Iteramos sobre todas las tareas para mostrarlas-->
+            <li class="list-group-item mt-1" *ngFor="let tarea of tareas; index as i"  cdkDrag [cdkDragData]="tarea">
+
+                <!--CheckBox, al hacer click se marca la tarea como completada-->
+                <span class="cursor" (click)="tareaCompletada(tarea, i)" >
+                    <i class="far fa-circle" ></i>
+                </span>
+
+                <!---Cuando pulsamos editar asignamos al componente el índice de la tarea que queremos editar-->
+                 <span class="cursor" (click)=" visible = !visible; setIndex(i)" >
+                    <i class ="fas fa-edit p-1 text-warning"></i>
+                </span>
+
+                {{tarea.nombre}}
+             
+                <!--Eliminar tarea-->
+                <span class="cursor text-danger"  (click)="eliminarTarea(i)" style="float:right">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+
+            </li>
+        </ul>
+</div>
+
+
+<!--Tareas completadas-->
+<div class="col-lg-6 mt-3 right"  >
+
+    <div class= "col-md card" *ngIf="tareasCompletadas.length > 0 || tareas.length > 0">
+        <h6 class="mx-auto">Tareas completadas:</h6>
+    </div>
+
+    <ul class="list-group mt-3">
+        
+        <!--Iteramos sobre todas las tareas para mostrarlas-->
+        <li class="list-group-item mt-1" *ngFor="let tarea of tareasCompletadas; index as i"  >
+        <i class="fas fa-check-circle text-success" ></i>
+
+            <span class="cursor text-primary" (click)="devolverTarea(tarea)" >
+            <!--Muestra icono de tarea completada-->
+            <i class="fas fa-undo-alt mx-1"></i>
+        </span>
+
+            {{tarea.nombre}}
+
+            <!--Eliminar tarea-->
+            <span class="cursor text-danger" (click)="eliminarTareaCompletada(i)" style="float:right">
+                <i class="fas fa-trash-alt"></i>
+            </span>
+        </li>
+
+    </ul>
+
+</div>
+</section>
+

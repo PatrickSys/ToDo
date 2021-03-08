@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/angular-drag-drop'),
+      dir: require('path').join(__dirname, './coverage/ToDo'),
       subdir: '.',
       reporters: [
         { type: 'html' },
