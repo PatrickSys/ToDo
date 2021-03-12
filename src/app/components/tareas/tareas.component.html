@@ -4,7 +4,7 @@
     <div class="col-lg-8 offset-lg-2">
         <input type="text" [(ngModel)]="nombreTarea" *ngIf="!visible"
          (keydown.enter)="agregarTarea()" 
-            class="form-control form-control-lg" required placeholder="Añade una tarea..." >
+            class="form-control form-control-lg" required placeholder="Create a task..." >
     </div>
 
     <!--Input que aparecerá al hacer click en editar, recibe el index del componente de Tarea como parámetro -->
@@ -17,7 +17,7 @@
 
     <div class="col-lg-6 offset-lg-3 mt-3">
         <div *ngIf="tareas.length === 0 && tareasCompletadas.length === 0" class="card p-1">
-            <h6 class="mx-auto">No hay tareas para mostrar. </h6>
+            <h6 class="mx-auto">Create a new task to show up</h6>
         </div>
 
     </div>
@@ -27,7 +27,7 @@
 
 
     <div class= "col-md card" *ngIf="tareas.length > 0 || tareasCompletadas.length > 0">
-        <h6 class="mx-auto">Tareas por hacer:</h6>
+        <h6 class="mx-auto">Tasks to do:</h6>
     </div>
 
     <ul class="list-group mt-3">    
@@ -61,7 +61,7 @@
 <div class="col-lg-6 mt-3 right"  >
 
     <div class= "col-md card" *ngIf="tareasCompletadas.length > 0 || tareas.length > 0">
-        <h6 class="mx-auto">Tareas completadas:</h6>
+        <h6 class="mx-auto">Tasks done:</h6>
     </div>
 
     <ul class="list-group mt-3">
